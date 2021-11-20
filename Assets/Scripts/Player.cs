@@ -5,18 +5,28 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody2D corp;
-    [SerializeField] float moveSpeed = 10f;
+    public float moveSpeed = 10f;
 
-    // Start is called before the first frame update
+    public GameObject bullet;
+
+    public GameObject point1;
+    public GameObject point2;
+    
     void Start()
     {
         corp = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         var input = Input.GetAxis("Horizontal");
+        var fire = Input.GetAxis("Jump");
+
+        if(Input.GetButton("Jump")) {
+            Instantiate(bullet, point1.transform.position, Quaternion.identity);
+            Instantiate(bullet, point2.transform.position, Quaternion.identity);
+
+        }
 
         var position = corp.transform.position;
         var newPos = position + Vector3.right * input * moveSpeed * Time.deltaTime;
